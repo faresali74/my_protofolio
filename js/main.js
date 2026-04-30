@@ -576,8 +576,6 @@ function initCTA() {
           .querySelector("#projects")
           ?.scrollIntoView({ behavior: "smooth" }),
       );
-    if (txt.includes("Download CV"))
-      btn.addEventListener("click", () => window.open("./cv.pdf"));
   });
 }
 
