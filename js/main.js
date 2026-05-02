@@ -390,12 +390,8 @@ function smallCard(repo, desc, demoUrl) {
                        border border-outline-variant text-on-surface-variant">
             <span class="w-2 h-2 rounded-full" style="background:${color}"></span>${lang}
           </span>
-          <span class="flex items-center gap-1 text-xs text-tertiary">
-            <span class="material-symbols-outlined text-sm">star</span>${stars}
-          </span>
-          <span class="flex items-center gap-1 text-xs text-tertiary">
-            <span class="material-symbols-outlined text-sm">schedule</span>${updated}
-          </span>
+        
+         
         </div>
         <div class="flex items-center gap-md mt-auto">
           ${
