@@ -268,121 +268,31 @@
             <h2 class="font-h1 text-h1 mb-xs">Projects</h2>
             <p class="font-body-md text-tertiary">A selection of my recent engineering work.</p>
           </div>
-          <button class="text-primary font-label-md flex items-center gap-2 hover:translate-x-1 transition-transform">
+          <a href="https://github.com/faresali74" target="_blank"
+            class="text-primary font-label-md flex items-center gap-2 hover:translate-x-1 transition-transform">
             Explore all work
-            <span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
-          </button>
+            <span class="material-symbols-outlined">arrow_forward</span>
+          </a>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-lg">
-          <!-- Featured Project -->
-          <div
-            class="md:col-span-2 lg:col-span-2 bg-white border border-outline-variant rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all group">
-            <div class="flex flex-col md:flex-row h-full">
-              <div class="md:w-1/2 overflow-hidden h-64 md:h-full">
-                <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  data-alt="Screenshot of a sleek dark-themed SaaS dashboard with complex data visualizations and 3D charts"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWiF5Vd6686dSGe34fBY9bN8vFn54sVyif09L1SlJfPo-JCc8uF7crEefNByW1UcjiHlWfk9Jfk559lKcgSfdlcLI2IPFEr8-An7mdi-3yYO7BrLy3nVkK6nZ4QVlCYoox2tArQw7lHkXurWr0sG1c5TZwBAq_c9ILSznAARYkrJcdul7FfCNhItTcTc5oG_bY7ixOjWGk1GPkMirD0sgTAOe4dVkT5nfFRUh3i-7kMugcviZtPVRBCWHsVnkL11f4L1EGN5UW0Qw" />
-              </div>
-              <div class="md:w-1/2 p-lg flex flex-col justify-between">
-                <div>
-                  <span class="text-primary font-label-sm uppercase tracking-widest">Featured
-                    Project</span>
-                  <h3 class="font-h2 text-h2 mt-xs mb-md text-on-surface">Nexus Analytics Engine</h3>
-                  <p class="font-body-md text-tertiary mb-lg">A real-time data monitoring platform
-                    processing 10k events per second. Built with Next.js 14, tRPC, and Tailwind CSS.
-                  </p>
-                  <div class="flex flex-wrap gap-xs mb-lg">
-                    <span
-                      class="bg-primary-fixed text-on-primary-fixed px-3 py-1 rounded-full text-xs font-medium">Next.js</span>
-                    <span
-                      class="bg-primary-fixed text-on-primary-fixed px-3 py-1 rounded-full text-xs font-medium">TypeScript</span>
-                    <span
-                      class="bg-primary-fixed text-on-primary-fixed px-3 py-1 rounded-full text-xs font-medium">PostgreSQL</span>
-                  </div>
-                </div>
-                <div class="flex gap-md">
-                  <a class="bg-primary text-on-primary px-5 py-2.5 rounded-lg font-label-md" href="#">Live Demo</a>
-                  <a class="border border-outline-variant text-on-surface px-5 py-2.5 rounded-lg font-label-md flex items-center gap-2"
-                    href="#">
-                    <span class="material-symbols-outlined" data-icon="source">source</span> Code
-                  </a>
-                </div>
-              </div>
+
+        <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-lg">
+
+          <div id="fetch-fallback"
+            class="col-span-full flex flex-col items-center justify-center py-xxl text-center gap-md">
+            <div class="w-20 h-20 rounded-full bg-red-50 dark:bg-red-900/20 flex items-center justify-center mb-sm">
+              <span class="material-symbols-outlined text-red-600 dark:text-red-400 text-5xl">sync_problem</span>
             </div>
+            <p class="font-h3 text-h3 text-on-surface">Failed to fetch projects</p>
+            <p class="text-tertiary font-body-sm max-w-md">
+              We couldn't load the featured repositories right now. You can view all my work directly on GitHub.
+            </p>
+            <a class="bg-primary text-on-primary px-8 py-3 rounded-xl font-label-md mt-sm flex items-center gap-2 hover:opacity-90 transition-all shadow-lg"
+              href="https://github.com/faresali74" target="_blank" rel="noopener">
+              <span class="material-symbols-outlined">open_in_new</span>
+              Visit My GitHub Profile
+            </a>
           </div>
-          <!-- Project Card 2 -->
-          <div
-            class="bg-white border border-outline-variant rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all flex flex-col">
-            <img class="w-full h-48 object-cover border-b"
-              data-alt="Mobile app interface for a fitness tracker showing heart rate graphs and progress circles"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpBF6mbwC_zGlMPhmYC2KeyxDDDEfKX7HkVwhASRenVQfL2TQ2yP6tVbuCP7WDJz60Up7FiBMxhi15H3dJBXMNHjzC8wxrTleWSBto3QxjTfY-XTzAFksqxSOyMJjmSYnPk9gw_eMVOv2QYvFft1YfHc0pl2vjW2dywQ_FGXbsISgJpdPybC9cUJimyEhdVLZAZ_Ip0Yj6Yy_RNwaN0jYIEEl6w5CwycpNzlpA0O9E0z99ncQy_WIXg6L9HknxwgOLSQN7TahjOHw" />
-            <div class="p-lg flex flex-col flex-grow">
-              <h3 class="font-h3 text-h3 mb-xs">Pulse Fitness App</h3>
-              <p class="font-body-sm text-tertiary mb-md flex-grow">A progressive web app for performance
-                tracking with offline sync capabilities.</p>
-              <div class="flex flex-wrap gap-xs mb-lg">
-                <span class="bg-secondary-fixed text-on-secondary-fixed px-3 py-1 rounded-full text-xs">React</span>
-                <span class="bg-secondary-fixed text-on-secondary-fixed px-3 py-1 rounded-full text-xs">PWA</span>
-              </div>
-              <a class="text-primary font-label-md hover:underline flex items-center gap-1" href="#">View
-                Case Study <span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span></a>
-            </div>
-          </div>
-          <!-- Project Card 3 -->
-          <div
-            class="bg-white border border-outline-variant rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all flex flex-col">
-            <img class="w-full h-48 object-cover border-b"
-              data-alt="E-commerce storefront with high-resolution minimalist product photography and clean typography"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyOLArDo6GLG5EIwfj2jx6LQHtGFGPCpcLEVQnBfIPX9XYTX7rIHgHrzr5D0KLadN8kQCFMIV35aJtfVxTxOTf2nJK3kCDaEBRijS-OkKIGx0qevRpKR30ARWVOc4bNlr8ztWzCuSqALJypKVa0tSeiOJ-6lL4PV3AMeOJg0JsJL2mAghQgWeB63TS3EMP_fihIedavE94uHb4g0Lpa5KJxPkpW3wiRaMH1T4rur5kMhM_jZT8ehhM5F--9vAqBg9xyi0jor54bP8" />
-            <div class="p-lg flex flex-col flex-grow">
-              <h3 class="font-h3 text-h3 mb-xs">Lumina E-Commerce</h3>
-              <p class="font-body-sm text-tertiary mb-md flex-grow">Headless commerce solution with
-                ultra-fast checkout and global state management.</p>
-              <div class="flex flex-wrap gap-xs mb-lg">
-                <span class="bg-secondary-fixed text-on-secondary-fixed px-3 py-1 rounded-full text-xs">Shopify</span>
-                <span class="bg-secondary-fixed text-on-secondary-fixed px-3 py-1 rounded-full text-xs">Remix</span>
-              </div>
-              <a class="text-primary font-label-md hover:underline flex items-center gap-1" href="#">View
-                Case Study <span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span></a>
-            </div>
-          </div>
-          <!-- Project Card 4 -->
-          <div
-            class="bg-white border border-outline-variant rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all flex flex-col">
-            <img class="w-full h-48 object-cover border-b"
-              data-alt="Digital art marketplace with a bento grid layout showcasing various nft illustrations"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmLVwZzSn8ur3VeGyQ5gOhNJF1WhOe2W1PBphp0I_z6Riq3UFxTtVxo2eGtjlAsFWXcTfrTz4K8FX6qjJOvkBp3NZwBiLNcr0ykSw8KeU1du9jP3Z72mZ3QvidmsbCqjFRvIFHoCUnplWtIYNp8C3JCihxVcSKqXqMo3-QbXhzNOuoLT5V6l-6spi8M-PJDiQlN_G397_mG0L3DYEfmUY0pBoCMempmIsyK9R_I9vbtGcrXgWkg9SbHv5CyOp4513f6jpVnX07MZk" />
-            <div class="p-lg flex flex-col flex-grow">
-              <h3 class="font-h3 text-h3 mb-xs">Artify Marketplace</h3>
-              <p class="font-body-sm text-tertiary mb-md flex-grow">Decentralized art platform with
-                integrated wallet connection and minting features.</p>
-              <div class="flex flex-wrap gap-xs mb-lg">
-                <span class="bg-secondary-fixed text-on-secondary-fixed px-3 py-1 rounded-full text-xs">Web3.js</span>
-                <span class="bg-secondary-fixed text-on-secondary-fixed px-3 py-1 rounded-full text-xs">Solidity</span>
-              </div>
-              <a class="text-primary font-label-md hover:underline flex items-center gap-1" href="#">View
-                Case Study <span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span></a>
-            </div>
-          </div>
-          <!-- Project Card 5 -->
-          <div
-            class="bg-white border border-outline-variant rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all flex flex-col">
-            <img class="w-full h-48 object-cover border-b"
-              data-alt="Modern collaborative code editor interface with split panels and syntax highlighting"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXxTxul3aHLeHjksOKg6POo1bcQvRgEK0VDNxVu-q-v7ykH9vlFrozxeqa10KDmDna9FA5L78a0OSKfW6HFOBFs_IFD79vcXgN7pkawC7Tbq7zqParYhkIJalrsl1CpLc41Q4us4Yi9vLghKbVfxvmnhW5VhS8AiI8CMDYdSS6dirOKUrlIem1z5ADBtWdYS_b4UuW_Aoozp5PfsayPdChRLpF5PjdRC6eX855unNrvCTvDvwxAV3Fo0gTtvTBEazLIDEmToKx8gs" />
-            <div class="p-lg flex flex-col flex-grow">
-              <h3 class="font-h3 text-h3 mb-xs">DevHub Editor</h3>
-              <p class="font-body-sm text-tertiary mb-md flex-grow">A cloud-based IDE supporting real-time
-                pair programming via WebSockets.</p>
-              <div class="flex flex-wrap gap-xs mb-lg">
-                <span class="bg-secondary-fixed text-on-secondary-fixed px-3 py-1 rounded-full text-xs">Socket.io</span>
-                <span class="bg-secondary-fixed text-on-secondary-fixed px-3 py-1 rounded-full text-xs">Ace
-                  Editor</span>
-              </div>
-              <a class="text-primary font-label-md hover:underline flex items-center gap-1" href="#">View
-                Case Study <span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span></a>
-            </div>
-          </div>
+
         </div>
       </div>
     </section>

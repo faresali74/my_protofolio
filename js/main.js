@@ -4,13 +4,13 @@
 
 /* ── Config ─────────────────────────────────────────────────── */
 const GITHUB_USERNAME = "faresali74";
-const GITHUB_TOKEN = ""; // اختياري — vercel.com/account/tokens
-const GITHUB_API = `https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=20`;
+const GITHUB_TOKEN = "";
+const GITHUB_API = `https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=50`;
 const GITHUB_PROFILE = `https://github.com/${GITHUB_USERNAME}`;
-const VERCEL_TOKEN = ""; // اختياري — vercel.com/account/tokens
+const VERCEL_TOKEN = "";
 
 const CACHE_KEY = "gh_repos_faresali74";
-const CACHE_TTL = 1000 * 60 * 60 * 6; // 6 ساعات
+const CACHE_TTL = 1000 * 60 * 60 * 6;
 
 /* ═══════════════════════════════════════════════════════════════
    DARK MODE
@@ -99,16 +99,13 @@ function initDarkMode() {
    GITHUB FETCH + CACHE
 ═══════════════════════════════════════════════════════════════ */
 async function fetchRepos() {
-  // ── جرب الـ cache الأول ──
   try {
     const cached = JSON.parse(localStorage.getItem(CACHE_KEY));
     if (cached && Date.now() - cached.ts < CACHE_TTL) {
-      console.log("✅ Repos loaded from cache");
       return cached.data;
     }
   } catch {}
 
-  // ── اجيب من GitHub ──
   const headers = GITHUB_TOKEN
     ? { Authorization: `Bearer ${GITHUB_TOKEN}` }
     : {};
@@ -116,7 +113,6 @@ async function fetchRepos() {
   const res = await fetch(GITHUB_API, { headers });
 
   if (!res.ok) {
-    // لو فشل — استخدم الـ cache القديم حتى لو expired
     try {
       const stale = JSON.parse(localStorage.getItem(CACHE_KEY));
       if (stale?.data) {
@@ -456,16 +452,40 @@ function renderError(container, message = "Couldn't load repositories") {
 /* ═══════════════════════════════════════════════════════════════
    MAIN LOADER
 ═══════════════════════════════════════════════════════════════ */
+async function resolveDescription(repo) {
+  if (repo.description && repo.description.length > 5) return repo.description;
+
+  try {
+    const res = await fetch(
+      `https://api.github.com/repos/${GITHUB_USERNAME}/${repo.name}/readme`,
+      {
+        headers: { Accept: "application/vnd.github.v3.raw" },
+      },
+    );
+
+    if (res.status === 404)
+      return "Front-end development project showcasing modern UI/UX.";
+
+    if (res.ok) {
+      const text = await res.text();
+      const cleanText = text
+        .replace(/[#*`>]/g, "")
+        .split("\n")
+        .find((l) => l.trim().length > 15);
+      return cleanText
+        ? cleanText.slice(0, 120) + "..."
+        : "Modern web application built with React/Next.js.";
+    }
+  } catch (e) {
+    return "Exploring new technologies and building scalable web solutions.";
+  }
+
+  return "Professional web development project.";
+}
+
 async function loadProjects() {
-  const section = document.querySelector("#projects");
-  const grid = section?.querySelector(".grid");
-  const exploreBtn = section?.querySelector("button");
-
+  const grid = document.querySelector("#projects .grid");
   if (!grid) return;
-
-  exploreBtn?.addEventListener("click", () =>
-    window.open(GITHUB_PROFILE, "_blank", "noopener"),
-  );
 
   renderSkeletons(grid);
 
@@ -475,48 +495,49 @@ async function loadProjects() {
       fetchVercelProjects(),
     ]);
 
-    const list = repos
-      .filter((r) => !r.fork)
-      .sort((a, b) => new Date(b.pushed_at) - new Date(a.pushed_at))
-      .slice(0, 5);
+    let list = repos
+      .filter((r) => !r.fork && r.stargazers_count > 0)
+      .sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at))
+      .slice(0, 6);
 
-    if (!list.length) throw new Error("No repositories found");
+    if (list.length === 0) {
+      grid.innerHTML = `
+      <div class="col-span-full flex flex-col items-center justify-center py-xxl text-center gap-md">
+        <div class="w-20 h-20 rounded-full bg-red-50 dark:bg-red-900/20 flex items-center justify-center mb-sm">
+          <span class="material-symbols-outlined text-red-600 dark:text-red-400 text-5xl">sync_problem</span>
+        </div>
+        <p class="font-h3 text-h3 text-on-surface">Failed to fetch projects</p>
+        <p class="text-tertiary font-body-sm max-w-md">
+          We couldn't load the featured repositories right now. You can view all my work directly on GitHub.
+        </p>
+        <a class="bg-primary text-on-primary px-8 py-3 rounded-xl font-label-md mt-sm flex items-center gap-2 hover:opacity-90 transition-all shadow-lg"
+          href="${GITHUB_PROFILE}" target="_blank" rel="noopener">
+          <span class="material-symbols-outlined">open_in_new</span>
+          Visit My GitHub Profile
+        </a>
+      </div>`;
+      return;
+    }
 
-    /* ── Step 1: render فوراً بالـ description الموجودة ── */
-    grid.innerHTML = list
+    const displayList = await Promise.all(
+      list.map(async (repo) => {
+        const desc = await resolveDescription(repo);
+        return { ...repo, resolvedDesc: desc };
+      }),
+    );
+
+    grid.innerHTML = displayList
       .map((repo, i) => {
         const demoUrl =
           matchVercelUrl(repo.name, vercelMap) ?? (repo.homepage || null);
-        const desc = repo.description || "Loading description…";
         return i === 0
-          ? featuredCard(repo, desc, demoUrl)
-          : smallCard(repo, desc, demoUrl);
+          ? featuredCard(repo, repo.resolvedDesc, demoUrl)
+          : smallCard(repo, repo.resolvedDesc, demoUrl);
       })
       .join("");
-
-    /* ── Step 2: حسّن الـ descriptions في الـ background ── */
-    list.forEach(async (repo, i) => {
-      if (repo.description?.length > 20) return;
-
-      const desc = await resolveDescription(repo);
-      const cards = grid.querySelectorAll(".card-hover");
-      const p = cards[i]?.querySelector(".desc");
-
-      if (p && desc) {
-        p.style.transition = "opacity .3s";
-        p.style.opacity = "0";
-        setTimeout(() => {
-          p.textContent = desc;
-          p.style.opacity = "1";
-        }, 300);
-      }
-    });
   } catch (err) {
     console.error("Projects load error:", err);
-    const msg = err.message.includes("403")
-      ? "GitHub rate limit reached — try again in an hour"
-      : "Couldn't load repositories";
-    renderError(grid, msg);
+    renderError(grid, "Couldn't sync with your GitHub stars.");
   }
 }
 
